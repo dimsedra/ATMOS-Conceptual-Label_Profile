@@ -2,7 +2,7 @@
 
 > "Rejecting consumption-based cycles to construct continuous sensory environments."
 
-ATMOS is a highly interactive, functional brutalism front-end built for an architectural music collective. The application houses two primary routing branches: the **ATMOS** core manifesto, and the **UNRAW** kinetic subgroup. 
+ATMOS is a highly interactive, functional brutalism front-end built for an architectural music collective. The application houses two primary routing branches: the **ATMOS** core manifesto, and the **UNRAW** kinetic subgroup.
 
 Engineered with severe brutalist aesthetics and zero-compromise kinematic mechanics, the interface heavily utilizes physics-based momentum systems, real-time typography scrambling, and multi-directional scrolling distortions to provide an ultra-premium sensory UX.
 
@@ -21,22 +21,26 @@ Engineered with severe brutalist aesthetics and zero-compromise kinematic mechan
 ## 🛠 Local Installation & Setup
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/dimsedra/ATMOS-Conceptual-Label_Profile.git
    cd "ATMOS Label"
    ```
 
 2. **Install core Node dependencies:**
+
    ```bash
    npm install
    ```
 
 3. **Configure Environment Variables:**
    If you plan to utilize the Google/YouTube Developer API data interactions in the future, create a `.env.local` file in the root directory and securely inject your Google credentials tracking:
+
    ```env
    VITE_GOOGLE_CLIENT_ID="[YOUR_OAUTH_CLIENT_ID]"
    ```
-   *(Note: The `secret.txt` and `.env.local` files are securely hidden via `.gitignore` to prevent public credential leaking.)*
+
+   _(Note: The `secret.txt` and `.env.local` files are securely hidden via `.gitignore` to prevent public credential leaking.)_
 
 4. **Boot the Local Development Server:**
    ```bash
@@ -47,17 +51,22 @@ Engineered with severe brutalist aesthetics and zero-compromise kinematic mechan
 ---
 
 ## Production Deployment
+
 To build the static production bundle locally for inspection:
+
 ```bash
 npm run build
 npm run preview
 ```
+
 ##Link to the website
 I've deployed this website through vercel, if you'd like to see how it looks, here it is: [ATMOS](https://atmos-conceptual-label-profile.vercel.app/)
+
 ## 💻 Tech Stack
-* **Framework:** React 18
-* **Build Tool:** Vite
-* **Routing:** React Router v6
-* **Physics & Animation:** Framer Motion
-* **Scroll Engine:** Lenis
-* **Aesthetics:** Vanilla CSS (CSS Variables + Scoped Component Files)
+
+- **Framework:** React 18
+- **Build Tool:** Vite
+- **Routing:** React Router v6
+- **Physics & Animation:** Framer Motion
+- **Scroll Engine:** Lenis
+- **Aesthetics:** Vanilla CSS (CSS Variables + Scoped Component Files)
