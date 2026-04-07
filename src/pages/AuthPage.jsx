@@ -1,24 +1,76 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSupabase } from '../context/SupabaseContext';
 import AtmosTopNav from '../components/AtmosTopNav';
 import SmoothReveal from '../components/SmoothReveal';
 import './AuthPage.css';
 
 export default function AuthPage() {
+  const { supabase, user } = useSupabase();
+  const navigate = useNavigate();
+  
   const [isLogin, setIsLogin] = useState(true);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [error, setError] = useState(null);
+  
+  // Form State
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
     if (window.lenis) window.lenis.scrollTo(0, { immediate: true });
-  }, []);
+    // If already logged in, redirect
+    if (user) navigate('/');
+  }, [user, navigate]);
 
-  const handleSubmit = (e) => {
+  const validateInputs = () => {
+    if (!email.includes('@')) return 'INVALID_EMAIL_FORMAT';
+    if (password.length < 6) return 'SECURITY_KEY_TOO_SHORT_MIN_6';
+    if (!isLogin && !username.trim()) return 'USER_ALIAS_REQUIRED';
+    return null;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
+
+    const validationError = validateInputs();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
     setIsAuthenticating(true);
-    setTimeout(() => {
+
+    try {
+      if (isLogin) {
+        const { error: loginError } = await supabase.auth.signInWithPassword({
+          email: email.trim(),
+          password,
+        });
+        if (loginError) throw loginError;
+      } else {
+        const { error: signUpError } = await supabase.auth.signUp({
+          email: email.trim(),
+          password,
+          options: {
+            data: {
+              full_name: username.trim(),
+              username: username.trim().toLowerCase().replace(/\s+/g, '_'),
+            },
+          },
+        });
+        if (signUpError) throw signUpError;
+        // Supabase might require email confirmation, alert user
+        setError('CHECK_EMAIL_FOR_CONFIRMATION');
+      }
+    } catch (err) {
+      setError(err.message.toUpperCase().replace(/\s+/g, '_'));
+    } finally {
       setIsAuthenticating(false);
-      // Logic for transition would go here
-    }, 1500);
+    }
   };
 
   return (
@@ -64,12 +116,35 @@ export default function AuthPage() {
               >
                 <div className="input-group">
                   <label>EMAIL IDENTIFIER</label>
-                  <input type="email" required placeholder="your@email.com" />
+                  <input 
+                    type="email" 
+                    required 
+                    placeholder="your@email.com" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
                 <div className="input-group">
                   <label>SECURITY KEY</label>
-                  <input type="password" required placeholder="••••••••" />
+                  <input 
+                    type="password" 
+                    required 
+                    placeholder="••••••••" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </div>
+
+                {error && (
+                  <motion.div 
+                    className="auth-error-console"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                  >
+                    <span className="error-prefix">ERR_STATE:</span> {error}
+                  </motion.div>
+                )}
+
                 <button type="submit" className={`studio-submit ${isAuthenticating ? 'loading' : ''}`} disabled={isAuthenticating}>
                   {isAuthenticating ? 'AUTHENTICATING_SYS...' : 'INITIATE ACCESS'}
                 </button>
@@ -86,16 +161,45 @@ export default function AuthPage() {
               >
                 <div className="input-group">
                   <label>USER ALIAS</label>
-                  <input type="text" required placeholder="your name" />
+                  <input 
+                    type="text" 
+                    required 
+                    placeholder="your name" 
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
                 </div>
                 <div className="input-group">
                   <label>EMAIL IDENTIFIER</label>
-                  <input type="email" required placeholder="your@email.com" />
+                  <input 
+                    type="email" 
+                    required 
+                    placeholder="your@email.com" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
                 <div className="input-group">
                   <label>SECURITY KEY</label>
-                  <input type="password" required placeholder="create key" />
+                  <input 
+                    type="password" 
+                    required 
+                    placeholder="create key" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </div>
+
+                {error && (
+                  <motion.div 
+                    className="auth-error-console"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                  >
+                    <span className="error-prefix">ERR_STATE:</span> {error}
+                  </motion.div>
+                )}
+
                 <button type="submit" className={`studio-submit ${isAuthenticating ? 'loading' : ''}`} disabled={isAuthenticating}>
                   {isAuthenticating ? 'GENERATING PROFILE...' : 'CREATE PROFILE'}
                 </button>
