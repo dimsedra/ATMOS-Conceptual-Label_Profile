@@ -22,7 +22,7 @@ Engineered with severe brutalist aesthetics and zero-compromise kinematic mechan
 
 1. **Clone the repository:**
    ```bash
-   git clone <your-repository-url>
+   git clone https://github.com/dimsedra/ATMOS-Conceptual-Label_Profile.git
    cd "ATMOS Label"
    ```
 
