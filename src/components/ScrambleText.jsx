@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 
 const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=~';
 
-export default function ScrambleText({ text, as: Component = 'span', className = '', ...props }) {
+export default function ScrambleText({ text, trigger, as: Component = 'span', className = '', ...props }) {
   const [displayText, setDisplayText] = useState(text);
   const [isHovering, setIsHovering] = useState(false);
 
+  const active = trigger !== undefined ? trigger : isHovering;
+
   useEffect(() => {
-    if (!isHovering) {
+    if (!active) {
       setDisplayText(text);
       return;
     }
@@ -36,7 +38,7 @@ export default function ScrambleText({ text, as: Component = 'span', className =
     }, 30); // 30ms
 
     return () => clearInterval(interval);
-  }, [isHovering, text]);
+  }, [active, text]);
 
   return (
     <Component 

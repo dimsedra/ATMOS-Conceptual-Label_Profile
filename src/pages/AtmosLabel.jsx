@@ -138,15 +138,15 @@ export default function AtmosLabel() {
           <h2 className="section-title" style={{marginTop:'1rem', position: 'relative', zIndex: 2}}><ScrambleText text="PHILOSOPHY" /></h2>
         </div>
         <div className="sticky-content">
-          <motion.div className="philosophy-block" onViewportEnter={() => setActivePhil(0)} viewport={{ margin: "-40% 0px -40% 0px", amount: 'some' }}>
+          <motion.div className="philosophy-block" onViewportEnter={() => setActivePhil(0)} viewport={{ amount: 0.25, margin: "-10% 0px -10% 0px" }}>
             <h3><ScrambleText text="CONSTANT-STATE" /><br/><ScrambleText text="DESIGN" /></h3>
             <p>Unlike traditional models relying on emotional "spikes" or "hype cycles," ATMOS develops systems to sustain a singular, prolonged feeling.</p>
           </motion.div>
-          <motion.div className="philosophy-block" onViewportEnter={() => setActivePhil(1)} viewport={{ margin: "-40% 0px -40% 0px", amount: 'some' }}>
+          <motion.div className="philosophy-block" onViewportEnter={() => setActivePhil(1)} viewport={{ amount: 0.25, margin: "-10% 0px -10% 0px" }}>
             <h3><ScrambleText text="ANTI-CONCEPT" /><br/><ScrambleText text="IDENTITY" /></h3>
             <p>The label operates without fixed themes or "eras." Our identity evolves naturally. We rigidly avoid radical, forced rebranding.</p>
           </motion.div>
-          <motion.div className="philosophy-block" onViewportEnter={() => setActivePhil(2)} viewport={{ margin: "-40% 0px -40% 0px", amount: 'some' }}>
+          <motion.div className="philosophy-block" onViewportEnter={() => setActivePhil(2)} viewport={{ amount: 0.25, margin: "-10% 0px -10% 0px" }}>
             <h3><ScrambleText text="FUNCTIONAL" /><br/><ScrambleText text="AESTHETIC" /></h3>
             <p>If an element does not serve a tangible function in real life, it is permanently excluded. Deliberate. Usable. Stripped of noise.</p>
           </motion.div>
@@ -170,7 +170,7 @@ export default function AtmosLabel() {
             >
               <div className="accordion-head">
                 <span className="accordion-id">{div.id}</span>
-                <h3 className="accordion-title"><ScrambleText text={div.name} /></h3>
+                <h3 className="accordion-title"><ScrambleText text={div.name} trigger={activeDivision === i} /></h3>
               </div>
               <div className="accordion-body">
                 <div className="accordion-content">
