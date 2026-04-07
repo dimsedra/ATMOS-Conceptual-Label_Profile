@@ -1,3 +1,8 @@
+import hoodieImg from '../components/img/members/minji/minji-photoshoot_-_corduroy jacket.jpg';
+import cargoImg from '../components/img/members/danielle/danielle-shop-photos_-_blue-white-red-triple-flanel-shirt.jpg';
+import teeImg from '../components/img/members/yujin/yujin-apparel-shot_-_white-art-printed-tshirt.jpg';
+import vinylImg from '../components/img/members/minji/minji-atmos-philosophy-cd-visual-unit.jpg';
+
 export const products = [
   {
     id: 1,
@@ -11,7 +16,7 @@ export const products = [
       sizing: "BOXY FIT / OVERSIZED",
       care: "COLD WASH / AIR DRY"
     },
-    img: "https://i.pinimg.com/1200x/fb/42/5a/fb425ad6333b8a49fa775171f44e06a1.jpg"
+    img: hoodieImg
   },
   {
     id: 2,
@@ -25,7 +30,7 @@ export const products = [
       sizing: "ADJUSTABLE WAIST / TAPERED",
       care: "DRY CLEAN RECOMMENDED"
     },
-    img: "https://i.pinimg.com/1200x/0c/fd/b2/0cfdb202a2ba0a04987759525b43ec2b.jpg"
+    img: cargoImg
   },
   {
     id: 3,
@@ -39,7 +44,7 @@ export const products = [
       sizing: "TRUE TO SIZE",
       care: "WASH AT 30°C"
     },
-    img: "https://i.pinimg.com/736x/1c/5d/e5/1c5de5294c035d358c6a8fb99e3fc6b9.jpg"
+    img: teeImg
   },
   {
     id: 4,
@@ -53,6 +58,6 @@ export const products = [
       sizing: "12 INCH / 33 RPM",
       care: "HANDLE WITH CARE"
     },
-    img: "https://i.pinimg.com/1200x/9c/09/29/9c0929545eb1f3283d460d2e23a0ca71.jpg"
+    img: vinylImg
   }
 ];

@@ -6,6 +6,18 @@ import AtmosTopNav from '../components/AtmosTopNav';
 import atmosLogoOffWhite from '../components/img/atmos-logo/ATMOS-Off-White.png';
 import './AtmosLabel.css';
 
+// Local Member Assets Migration
+import yujinPhil from '../components/img/members/yujin/yujin-atmos-philosophy.jpg';
+import nattyPhil from '../components/img/members/natty/natty-unraw-profile-3.jpg';
+import daniellePhil from '../components/img/members/danielle/danielle-unraw-profile-3.jpg';
+
+import nattyApparel from '../components/img/members/natty/natty-photoshoot_-_black-leather-bag.jpg';
+import minjiVisual from '../components/img/members/minji/minji-atmos-philosophy-cd-visual-unit.jpg';
+import yujinApparel from '../components/img/members/yujin/yujin-apparel-shot_-_white-art-printed-tshirt.jpg';
+
+import minjiManifesto from '../components/img/members/minji/minji-unraw-profile-3.jpg';
+import danielleManifesto from '../components/img/members/danielle/danielle-unraw-profile-2.jpg';
+
 export default function AtmosLabel() {
   const containerRef = useRef(null);
   
@@ -41,9 +53,9 @@ export default function AtmosLabel() {
   // Philosophy section sticky background tracker
   const [activePhil, setActivePhil] = useState(0);
   const philImages = [
-    "https://i.pinimg.com/1200x/fb/42/5a/fb425ad6333b8a49fa775171f44e06a1.jpg", // Yujin
-    "https://i.pinimg.com/1200x/0c/fd/b2/0cfdb202a2ba0a04987759525b43ec2b.jpg", // Natty
-    "https://i.pinimg.com/736x/1c/5d/e5/1c5de5294c035d358c6a8fb99e3fc6b9.jpg"  // Danielle
+    yujinPhil,
+    nattyPhil,
+    daniellePhil
   ];
 
   // Mouse Hover Tracker for "Tingly" Floating Images
@@ -70,9 +82,9 @@ export default function AtmosLabel() {
   ];
 
   const hoverImages = [
-    "https://i.pinimg.com/1200x/9c/09/29/9c0929545eb1f3283d460d2e23a0ca71.jpg", // Natty
-    "https://i.pinimg.com/1200x/70/20/12/702012d20e4312fa7d89cc692aba2d4a.jpg", // Minji
-    "https://i.pinimg.com/736x/c2/fc/d4/c2fcd47b35f66cbabe93b2a199ce5b15.jpg"  // Danielle
+    nattyApparel,
+    minjiVisual,
+    yujinApparel
   ];
 
   return (
@@ -150,8 +162,8 @@ export default function AtmosLabel() {
       <section className="manifesto-track">
         
         {/* Full Viewport Parallax Background Images */}
-        <motion.div className="manifesto-bg" style={{ opacity: m1Opacity, backgroundImage: `url('https://i.pinimg.com/1200x/70/20/12/702012d20e4312fa7d89cc692aba2d4a.jpg')` }} />
-        <motion.div className="manifesto-bg" style={{ opacity: m2Opacity, backgroundImage: `url('https://i.pinimg.com/1200x/9c/09/29/9c0929545eb1f3283d460d2e23a0ca71.jpg')` }} />
+        <motion.div className="manifesto-bg" style={{ opacity: m1Opacity, backgroundImage: `url('${minjiManifesto}')` }} />
+        <motion.div className="manifesto-bg" style={{ opacity: m2Opacity, backgroundImage: `url('${danielleManifesto}')` }} />
         
         <motion.div className="manifesto-statement" style={{ opacity: m1Opacity, scale: m1Scale }}>
           <h2>REDEFINE<br/>THE SYSTEM.</h2>

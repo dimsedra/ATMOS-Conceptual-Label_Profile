@@ -122,7 +122,7 @@ p {
 .hero-title {
   font-family: var(--font-display);
   margin: 0;
-  font-size: clamp(5rem, 12vw, 15rem);
+  font-size: clamp(4rem, 10vw, 11rem);
   line-height: 0.8;
   letter-spacing: -0.02em;
   margin-bottom: 2rem;
@@ -501,7 +501,7 @@ p {
 
 @media (max-width: 600px) {
   .hero-title { 
-    font-size: clamp(3rem, 14vw, 5rem); 
+    font-size: clamp(2rem, 12vw, 4rem); 
     margin-bottom: 1rem; 
   }
   .manifesto-statement h2 { font-size: clamp(2.5rem, 12vw, 3.5rem); }

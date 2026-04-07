@@ -7,6 +7,23 @@ import ScrambleText from '../components/ScrambleText';
 import AtmosTopNav from '../components/AtmosTopNav';
 import './UnrawArtist.css';
 
+// Local Member Assets Migration
+import natty1 from '../components/img/members/natty/natty-unraw-profile-1.jpg';
+import natty2 from '../components/img/members/natty/natty-unraw-profile-2.jpg';
+import natty3 from '../components/img/members/natty/natty-unraw-profile-3.jpg';
+
+import yujin1 from '../components/img/members/yujin/yujin-unraw-profile-1.jpg';
+import yujin2 from '../components/img/members/yujin/yujin-unraw-profile-2.jpg';
+import yujin3 from '../components/img/members/yujin/yujin-unraw-profile-3.jpg';
+
+import danielle1 from '../components/img/members/danielle/danielle-unraw-profile-1.jpg';
+import danielle2 from '../components/img/members/danielle/danielle-unraw-profile-2.jpg';
+import danielle3 from '../components/img/members/danielle/danielle-unraw-profile-3.jpg';
+
+import minji1 from '../components/img/members/minji/minji-unraw-profile-1.jpg';
+import minji2 from '../components/img/members/minji/minji-unraw-profile-2.jpg';
+import minji3 from '../components/img/members/minji/minji-unraw-profile-3.jpg';
+
 export default function UnrawArtist() {
   const kineticCoreRef = useRef(null);
   const [activeSection, setActiveSection] = useState('sec-00');
@@ -241,44 +258,28 @@ export default function UnrawArtist() {
         </div>
         <div className="unraw-grid-container layout-4">
           <ParallaxMemberCard 
-            images={[
-              "https://i.pinimg.com/1200x/e3/bb/c3/e3bbc3a84ee6bc1ea3cc0c3a1c4807ad.jpg",
-              "https://i.pinimg.com/1200x/3f/a3/01/3fa301257ce3cb11109276c57c5bdadf.jpg",
-              "https://i.pinimg.com/736x/bc/24/77/bc2477127bf8040421fda5551510f2d6.jpg"
-            ]}
+            images={[natty1, natty2, natty3]}
             alt="Natty"
             role="THE RHYTHM & GROOVE ANCHOR"
             name="NATTY"
             desc="Native R&B fluency. The group's sonic heartbeat driving the 'Pocket Groove' with sophisticated runs."
           />
           <ParallaxMemberCard 
-            images={[
-              "https://i.pinimg.com/1200x/50/32/b6/5032b6e8917a55a45524aebfc3b569f4.jpg",
-              "https://i.pinimg.com/736x/5c/d5/45/5cd54543e84bd18523336c837fadac01.jpg",
-              "https://i.pinimg.com/736x/34/56/df/3456dfd2b5f604638f6ca2e6979f9892.jpg"
-            ]}
+            images={[yujin1, yujin2, yujin3]}
             alt="Yujin"
             role="THE TEXTURED CORE"
             name="YUJIN"
             desc="The stabilizing weight. Neutral, androgynous vocal grain with a rhythmic, delay-type vibrato."
           />
           <ParallaxMemberCard 
-            images={[
-              "https://i.pinimg.com/736x/22/85/95/2285957107dee8bf7964e77fa839f126.jpg",
-              "https://i.pinimg.com/736x/05/c9/bc/05c9bcdb35339c84e87c7344c14157bf.jpg",
-              "https://i.pinimg.com/736x/a8/05/47/a8054723010b191de7101f68e16f63a4.jpg"
-            ]}
+            images={[danielle1, danielle2, danielle3]}
             alt="Danielle"
             role="THE ATMOSPHERIC NARRATOR"
             name="DANIELLE"
             desc="The emotional compass. Warm, storytelling vocal quality providing conversational ad-libs and clarity."
           />
           <ParallaxMemberCard 
-            images={[
-              "https://i.pinimg.com/736x/5e/34/ef/5e34ef90bd31d773658d3d57e004c4bc.jpg",
-              "https://i.pinimg.com/736x/05/c9/bc/05c9bcdb35339c84e87c7344c14157bf.jpg",
-              "https://i.pinimg.com/736x/47/c7/45/47c745e737465ea8f386ae5d03db884b.jpg"
-            ]}
+            images={[minji1, minji2, minji3]}
             alt="Minji"
             role="THE WARM FOUNDATION"
             name="MINJI"
