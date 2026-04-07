@@ -101,7 +101,7 @@ export default function UnrawArtist() {
           <h2>THE SONIC<br/>ARCHITECTURE</h2>
           <div className="unraw-sys-id">SEC. 01</div>
         </div>
-        <div style={{ padding: '0 3rem 4rem 3rem', borderBottom: '1px solid var(--grid-line)' }}>
+        <div className="unraw-video-wrapper">
           <YouTubePlayer videoId="S-VLzICd2FE" title="UNRAW KINETIC STATE MV" />
         </div>
         <div className="unraw-grid-container layout-3">

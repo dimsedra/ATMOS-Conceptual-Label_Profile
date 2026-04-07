@@ -26,6 +26,11 @@
   margin: 0; 
 }
 
+.unraw-video-wrapper {
+  padding: 0 3rem 4rem 3rem;
+  border-bottom: 1px solid var(--grid-line);
+}
+
 .unraw-container p {
   font-family: var(--font-mono);
   font-size: 0.85rem;
@@ -274,6 +279,7 @@
   flex-direction: column;
   justify-content: flex-end;
   border-right: 1px solid var(--grid-line);
+  max-height: 80vh;
   
   /* Critical fix: Forces Safari/Chrome to respect overflow: hidden on 3D perspective children */
   -webkit-mask-image: -webkit-radial-gradient(white, black);
@@ -324,14 +330,26 @@
   .unraw-nav {
     top: auto; bottom: 0; width: 100vw; height: var(--nav-width);
     flex-direction: row; border-right: none; border-top: 1px solid var(--grid-line);
+    z-index: 1000;
   }
-  .unraw-nav-node { border-bottom: none; border-right: 1px solid var(--grid-line); padding: 0; display: flex; align-items: center; justify-content: center; height: 100%; }
+  .unraw-nav-node { 
+    border-bottom: none; border-right: 1px solid var(--grid-line); 
+    padding: 0; display: flex; align-items: center; justify-content: center; 
+    height: 100%; flex: 1; 
+  }
   .back-to-atmos { transform: none; top: 0; position: relative; width: auto; font-size: 0.7rem; padding: 0 1rem; display: flex; align-items: center;}
   .layout-3, .layout-2 { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
   .layout-4 { grid-template-columns: 1fr; }
-  .hero-title-unraw { font-size: clamp(4rem, 25vw, 8rem); }
+  .hero-title-unraw { font-size: clamp(3rem, 20vw, 6rem); }
   .unraw-section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
   .spec-row { grid-template-columns: 1fr; gap: 0.5rem; }
+  .unraw-video-wrapper { padding: 0 1.5rem 2rem 1.5rem; }
+  
+  /* Prevent UX state C overflow stretching on narrow mobiles */
+  body { overflow-x: hidden; }
+  
+  /* Fill full width on 1fr mobile stack while capping vertical height */
+  .member-card { aspect-ratio: auto; height: 65vh; width: 100%; }
 }

@@ -97,7 +97,7 @@ export default function AtmosLabel() {
       <motion.section className="atmos-hero-sticky" style={{ opacity: heroOpacity, scale: heroScale }}>
         <div className="hero-content" style={{maxWidth: '1200px'}}>
           <div className="sys-text" style={{marginBottom: '2rem'}}>Est. 2025 // Label & Architectural Collective</div>
-          <h1 className="hero-title" style={{fontSize: 'clamp(5rem, 12vw, 15rem)', lineHeight: '0.8', letterSpacing: '-0.02em', marginBottom:'2rem'}}>The<br/>Architectural<br/>Label.</h1>
+          <h1 className="hero-title">The<br/>Architectural<br/>Label.</h1>
           <p className="hero-subtitle" style={{fontSize: '1.2rem', maxWidth: '600px', color: 'var(--text-light)'}}>Operating at the intersection of music, design, and lifestyle systems. Rejecting consumption-based cycles to construct continuous sensory environments.</p>
         </div>
       </motion.section>

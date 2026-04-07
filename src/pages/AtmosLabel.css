@@ -79,6 +79,10 @@ p {
 .hero-title {
   font-family: var(--font-display);
   margin: 0;
+  font-size: clamp(5rem, 12vw, 15rem);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
 }
 
 /* 2. Manifesto Scrolling Statements */
@@ -387,17 +391,34 @@ p {
 
 /* Responsiveness */
 @media (max-width: 900px) {
-  .atmos-nav { padding: 1.5rem 2rem; }
-  .atmos-hero-sticky { padding: 0 2rem; }
-  .manifesto-statement { padding: 0 2rem; }
+  .atmos-nav { padding: 1.5rem; }
+  .atmos-hero-sticky { padding: 0 1.5rem; }
+  .manifesto-statement { padding: 0 1.5rem; }
   .philosophy-sticky-container { flex-direction: column; }
-  .sticky-sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border-color); padding: 5rem 2rem; }
+  .sticky-sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border-color); padding: 5rem 1.5rem; }
   .sticky-content { width: 100%; }
-  .philosophy-block { min-height: 50vh; padding: 4rem 2rem; }
+  .philosophy-block { min-height: 50vh; padding: 4rem 1.5rem; }
   .manifesto-statement h2 { font-size: clamp(3rem, 12vw, 5rem); }
-  .divisions-section { padding: 4rem 2rem; }
+  .divisions-section { padding: 4rem 1.5rem; }
   .accordion-item.expanded .accordion-body { height: 400px; }
   .accordion-content { grid-template-columns: 1fr; gap: 2rem; padding-top: 2rem; }
+  
+  /* Vertical stack adjustments */
   .accordion-head { gap: 1rem; flex-direction: column; align-items: flex-start;}
+  .accordion-item:hover .accordion-head { gap: 2.5rem; }
+  .accordion-id::after {
+    top: 100%; left: 0; height: 0; width: 2px;
+    transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .accordion-item:hover .accordion-id::after { width: 2px; height: 2rem; top: 120%; }
+  
   .floating-hover-image { display: none; }
+}
+
+@media (max-width: 600px) {
+  .hero-title { font-size: clamp(3.5rem, 15vw, 6rem); margin-bottom: 1rem; }
+  .manifesto-statement h2 { font-size: clamp(2.8rem, 12vw, 4rem); }
+  .divisions-section .section-title { font-size: clamp(2.8rem, 12vw, 4rem); }
+  .accordion-title { font-size: clamp(2.5rem, 10vw, 3.5rem); }
+  .marquee-track { font-size: 2.5rem; }
 }
