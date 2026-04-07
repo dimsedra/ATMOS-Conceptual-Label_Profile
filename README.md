@@ -1,4 +1,4 @@
-# ATMOS | The Architectural Label
+<img width="1813" height="967" alt="image" src="https://github.com/user-attachments/assets/abbf2748-d628-49d7-a9b0-442d4492dd52" /># ATMOS | The Architectural Label
 
 > "Rejecting consumption-based cycles to construct continuous sensory environments."
 
@@ -59,7 +59,8 @@ npm run build
 npm run preview
 ```
 
-##Link to the website
+## Showcase
+
 I've deployed this website through vercel, if you'd like to see how it looks, here it is: [ATMOS](https://atmos-conceptual-label-profile.vercel.app/)
 
 ## 💻 Tech Stack
