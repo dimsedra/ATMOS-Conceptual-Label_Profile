@@ -12,6 +12,34 @@ export default function UnrawArtist() {
 
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMounting, setIsMounting] = useState(true);
+
+  useEffect(() => {
+    // 1. Always start at top immediately on route load
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true });
+      window.lenis.stop(); // Lock scroll for immersive intro
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 2. Unlock and fade in rest of UI after sequence
+    const timer = setTimeout(() => {
+      setIsMounting(false);
+      if (window.lenis) {
+        window.lenis.start();
+      } else {
+        document.body.style.overflow = '';
+      }
+    }, 2800);
+
+    return () => {
+      clearTimeout(timer);
+      if (window.lenis) window.lenis.start();
+      document.body.style.overflow = '';
+    };
+  }, []);
 
   useEffect(() => {
     return scrollY.on('change', (latest) => {
@@ -63,18 +91,29 @@ export default function UnrawArtist() {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <nav className="unraw-nav">
+      <motion.nav 
+        className="unraw-nav"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: isMounting ? 0 : 1, y: isMounting ? -20 : 0 }}
+        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+        style={{ pointerEvents: isMounting ? 'none' : 'auto' }}
+      >
         <Link to="/" className="back-to-atmos"><ScrambleText text="← ATMOS" /></Link>
         <button onClick={() => scrollToSection('sec-00')} className={`unraw-nav-node ${activeSection === 'sec-00' ? 'active' : ''}`}><ScrambleText text="00" /></button>
         <button onClick={() => scrollToSection('sec-01')} className={`unraw-nav-node ${activeSection === 'sec-01' ? 'active' : ''}`}><ScrambleText text="01" /></button>
         <button onClick={() => scrollToSection('sec-02')} className={`unraw-nav-node ${activeSection === 'sec-02' ? 'active' : ''}`}><ScrambleText text="02" /></button>
         <button onClick={() => scrollToSection('sec-03')} className={`unraw-nav-node ${activeSection === 'sec-03' ? 'active' : ''}`}><ScrambleText text="03" /></button>
-      </nav>
+      </motion.nav>
 
       <section className="unraw-hero target-section" id="sec-00">
         
         {/* ATMOSPHERIC BACKGROUND VIDEO */}
-        <div className="unraw-hero-bg">
+        <motion.div 
+          className="unraw-hero-bg"
+          initial={{ filter: 'blur(20px)', scale: 1.1 }}
+          animate={{ filter: 'blur(0px)', scale: 1 }}
+          transition={{ duration: 2.5, ease: "easeOut" }}
+        >
           <div className="unraw-hero-overlay"></div>
           <iframe 
             src="https://www.youtube.com/embed/YedDBwTikzk?autoplay=1&mute=1&controls=0&loop=1&playlist=YedDBwTikzk&playsinline=1&modestbranding=1" 
@@ -83,20 +122,47 @@ export default function UnrawArtist() {
             allowFullScreen
             title="UNRAW Kinetic State Background"
           />
-        </div>
+        </motion.div>
 
-        <div className="data-overlay data-tl">
+        <motion.div 
+          className="data-overlay data-tl"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 1, duration: 1 }}
+        >
           SYS.STATE: KINETIC HIGH-COMPRESSION<br/>
           NO LOADING SCREEN
-        </div>
-        <h1 className={`hero-title-unraw ${isScrolled ? 'paused' : ''}`} id="kinetic-core" ref={kineticCoreRef}>UNRAW</h1>
-        <div className="data-overlay data-br">
+        </motion.div>
+        
+        <motion.h1 
+          className={`hero-title-unraw ${isScrolled ? 'paused' : ''}`} 
+          id="kinetic-core" 
+          ref={kineticCoreRef}
+          initial={{ opacity: 0, scale: 0.85, letterSpacing: '1.5rem', filter: 'blur(10px)' }}
+          animate={{ opacity: 1, scale: 1, letterSpacing: '-0.02em', filter: 'blur(0px)' }}
+          transition={{ delay: 0.5, duration: 2, ease: [0.16, 1, 0.3, 1] }}
+        >
+          UNRAW
+        </motion.h1>
+        
+        <motion.div 
+          className="data-overlay data-br"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 1, duration: 1 }}
+        >
           ATMOS // ARCHITECTURAL LABEL<br/>
           NOT A CONCEPT. A WORLDVIEW.
-        </div>
+        </motion.div>
       </section>
 
-      <section className="target-section" id="sec-01">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: isMounting ? 0 : 1, y: isMounting ? 40 : 0 }}
+        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+        style={{ pointerEvents: isMounting ? 'none' : 'auto' }}
+      >
+        <section className="target-section" id="sec-01">
         <div className="unraw-section-header">
           <h2>THE SONIC<br/>ARCHITECTURE</h2>
           <div className="unraw-sys-id">SEC. 01</div>
@@ -220,11 +286,12 @@ export default function UnrawArtist() {
         </div>
       </section>
 
-      <footer className="unraw-footer">
-        <div>© 2026 ATMOS LABEL</div>
-        <div style={{color: 'var(--strike)', fontWeight: '800'}}>FUNCTIONAL BRUTALISM</div>
-        <div>SEOUL // GLOBAL</div>
-      </footer>
+        <footer className="unraw-footer">
+          <div>© 2026 ATMOS LABEL</div>
+          <div style={{color: 'var(--strike)', fontWeight: '800'}}>FUNCTIONAL BRUTALISM</div>
+          <div>SEOUL // GLOBAL</div>
+        </footer>
+      </motion.div>
     </motion.div>
   );
 }

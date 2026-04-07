@@ -1,7 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 import ScrambleText from '../components/ScrambleText';
+import atmosLogoOffWhite from '../components/img/atmos-logo/ATMOS-Off-White.png';
 import './AtmosLabel.css';
 
 export default function AtmosLabel() {
@@ -24,6 +25,17 @@ export default function AtmosLabel() {
 
   // Expandable Div Tracker
   const [activeDivision, setActiveDivision] = useState(null);
+
+  // Preloader State
+  const [showPreloader, setShowPreloader] = useState(true);
+
+  useEffect(() => {
+    // Hide preloader after immersive sequence
+    const timer = setTimeout(() => {
+      setShowPreloader(false);
+    }, 2400); // 2.4s to let the logo breathe before snapping to nav
+    return () => clearTimeout(timer);
+  }, []);
 
   // Philosophy section sticky background tracker
   const [activePhil, setActivePhil] = useState(0);
@@ -71,6 +83,30 @@ export default function AtmosLabel() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
+      <AnimatePresence>
+        {showPreloader && (
+          <motion.div
+            className="atmos-preloader"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }}
+          >
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0, filter: 'blur(10px)' }}
+              animate={{ scale: 1, opacity: 1, filter: 'blur(0px)' }}
+              transition={{ duration: 1.8, ease: "easeOut" }}
+              className="preloader-logo-container"
+            >
+              <motion.img 
+                layoutId="main-atmos-logo"
+                src={atmosLogoOffWhite}
+                alt="ATMOS Preloader Logo" 
+                className="preloader-logo-img"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Floating Hover Image for highly immersive divisions scrub interaction */}
       <motion.div 
         className="floating-hover-image"
@@ -85,7 +121,29 @@ export default function AtmosLabel() {
 
       <header className="atmos-header">
         <nav className="atmos-nav">
-          <Link to="/" className="atmos-logo"><ScrambleText text="ATMOS" /></Link>
+          <Link to="/" className="atmos-logo-link">
+            <div className="nav-logo-wrapper">
+              {!showPreloader && (
+                <motion.img 
+                  layoutId="main-atmos-logo"
+                  src={atmosLogoOffWhite}
+                  alt="ATMOS"
+                  className="nav-logo-img"
+                  transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                />
+              )}
+            </div>
+            {!showPreloader && (
+               <motion.span 
+                 initial={{ opacity: 0, x: -10 }}
+                 animate={{ opacity: 1, x: 0 }}
+                 transition={{ delay: 1, duration: 0.8 }}
+                 style={{ marginLeft: '1rem' }}
+               >
+                 <ScrambleText text="ATMOS" />
+               </motion.span>
+            )}
+          </Link>
           <Link to="/unraw" className="status sys-text" style={{ textDecoration: 'none', borderBottom: '1px solid #555' }}>
             <div className="dot"></div>
             <ScrambleText text="ENTER: UNRAW SYNC" />
@@ -95,6 +153,19 @@ export default function AtmosLabel() {
 
       {/* Cinematic Hero */}
       <motion.section className="atmos-hero-sticky" style={{ opacity: heroOpacity, scale: heroScale }}>
+        
+        {/* Massive Background Logo Parallax */}
+        <motion.img 
+          src={atmosLogoOffWhite}
+          alt="ATMOS Massive Background" 
+          className="hero-massive-logo"
+          style={{
+             y: useTransform(scrollYProgress, [0, 1], [0, 1200]),
+             rotate: useTransform(scrollYProgress, [0, 1], [0, 25]),
+             opacity: 0.04
+          }}
+        />
+
         <div className="hero-content" style={{maxWidth: '1200px'}}>
           <div className="sys-text" style={{marginBottom: '2rem'}}>Est. 2025 // Label & Architectural Collective</div>
           <h1 className="hero-title">The<br/>Architectural<br/>Label.</h1>
