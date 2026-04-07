@@ -1,0 +1,42 @@
+/* src/index.css - Global Styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: none; /* Custom cursors are applied everywhere */
+}
+
+html {
+  /* No smooth scrolling for UNRAW, handled conditionally per page, but by default: */
+  scroll-behavior: auto; 
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  background-color: #030303; /* Global dark bg */
+  color: #e0e0e0;
+}
+
+::selection {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #000;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+@keyframes flashbang {
+  0% { background-color: #fff; }
+  100% { background-color: transparent; }
+}
+
+/* Utility to ensure elements that should trigger custom cursor hover events don't block pointer */
+a, button, [role="button"] {
+  cursor: none;
+}

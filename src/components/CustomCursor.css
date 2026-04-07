@@ -1,0 +1,32 @@
+/* CustomCursor.css */
+
+.cursor-atmos {
+  position: fixed;
+  top: 0; left: 0;
+  width: 12px; height: 12px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999999;
+  mix-blend-mode: difference;
+}
+
+.cursor-trail-atmos {
+  position: fixed;
+  top: 0; left: 0;
+  width: 40px; height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999998;
+}
+
+@media (max-width: 900px) {
+  .cursor-atmos, .cursor-trail-atmos { display: none; }
+}
+
+/* Hide cursor when over active iframes */
+body.hide-custom-cursor .cursor-atmos,
+body.hide-custom-cursor .cursor-trail-atmos {
+  opacity: 0 !important;
+}

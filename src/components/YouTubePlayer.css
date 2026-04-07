@@ -1,0 +1,61 @@
+/* YouTubePlayer.css */
+.youtube-player-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  background-color: var(--bg-color, #080808);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  margin: 2rem 0;
+  cursor: none; /* Inherit none for custom cursor */
+}
+
+.youtube-player-wrapper.is-playing {
+  cursor: auto; /* Fallback for native cursor when custom is hidden */
+}
+
+.youtube-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: grayscale(100%) contrast(110%);
+  transition: filter 0.3s ease;
+}
+
+.youtube-iframe.pointer-disabled {
+  pointer-events: none;
+}
+
+.youtube-player-wrapper:hover .youtube-iframe {
+  filter: grayscale(0%) contrast(100%);
+}
+
+.youtube-interactive-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.play-button-indicator {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  padding: 1rem 3rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.youtube-interactive-overlay:hover .play-button-indicator {
+  opacity: 1;
+  transform: scale(1.05);
+}

@@ -1,0 +1,403 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+
+:root {
+  --bg-color: #030303;
+  --text-base: #f4f4f4;
+  --text-light: #888888;
+  --border-color: #333333;
+  
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Oswald', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-base);
+  margin: 0;
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+}
+
+p {
+  font-family: var(--font-mono);
+  line-height: 1.6;
+}
+
+/* Navigation */
+.atmos-header {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  z-index: 100;
+  mix-blend-mode: difference;
+}
+
+.atmos-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+}
+
+.atmos-logo {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--text-base);
+  text-decoration: none;
+}
+
+.sys-text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+}
+
+.dot {
+  width: 6px; height: 6px;
+  background-color: #ff2a00;
+  border-radius: 50%;
+  margin-right: 0.75rem;
+}
+
+/* 1. Cinematic Hero */
+.atmos-hero-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 4rem;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  margin: 0;
+}
+
+/* 2. Manifesto Scrolling Statements */
+.manifesto-track {
+  height: 250vh;
+  position: relative;
+  z-index: 20;
+}
+
+.manifesto-bg {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(80%) brightness(0.2) contrast(1.2);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.manifesto-statement {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 4rem;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.manifesto-statement h2 {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 12rem);
+  line-height: 0.85;
+  color: var(--text-base);
+  margin: 0 0 2rem 0;
+  max-width: 1400px;
+  text-transform: uppercase;
+}
+
+.manifesto-statement p {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  max-width: 500px;
+  color: var(--text-light);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.right-align {
+  align-items: flex-end;
+  text-align: right;
+}
+
+/* 3. Philosophy Sticky Layout */
+.philosophy-sticky-container {
+  display: flex;
+  position: relative;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-color); 
+  z-index: 30;
+}
+
+.sticky-sidebar {
+  width: 35%;
+  padding: 4rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.sidebar-image-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-size: cover;
+  background-position: center 25%;
+  opacity: 0.35;
+  filter: grayscale(30%) contrast(1.1);
+  z-index: 1;
+}
+
+.section-num {
+  font-family: var(--font-mono);
+  color: #ff2a00;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  margin: 0;
+}
+
+.sticky-content {
+  width: 65%;
+  position: relative;
+  z-index: 2;
+  background-color: var(--bg-color);
+}
+
+.philosophy-block {
+  min-height: 100vh;
+  padding: 6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.philosophy-block h3 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5vw, 6rem);
+  color: var(--text-base);
+  margin: 0 0 2rem 0;
+  line-height: 0.9;
+}
+
+.philosophy-block p {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  max-width: 600px;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 4. Divisions Hover Accordion */
+.divisions-section {
+  padding: 8rem 4rem;
+  background-color: var(--bg-color);
+  z-index: 30;
+  position: relative;
+}
+
+.divisions-section .section-title {
+  font-size: clamp(4rem, 9vw, 9rem);
+  line-height: 0.85;
+}
+
+.floating-hover-image {
+  position: fixed;
+  top: 0; left: 0;
+  width: 250px; height: 350px;
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+  z-index: 50;
+  border-radius: 0;
+  filter: grayscale(20%) contrast(1.2);
+  transform-origin: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: opacity 0.3s ease;
+}
+
+.accordion-container {
+  border-top: 1px solid var(--border-color);
+}
+
+.accordion-item {
+  border-bottom: 1px solid var(--border-color);
+  padding: 3rem 0;
+  cursor: pointer;
+  transition: padding 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 35;
+}
+
+.accordion-item:hover {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.accordion-head {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  transition: gap 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.accordion-item:hover .accordion-head {
+  gap: 6rem;
+}
+
+.accordion-id {
+  position: relative;
+  font-family: var(--font-mono);
+  color: #ff2a00;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* Mechanical stretching line on hover */
+.accordion-id::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 1rem);
+  height: 2px;
+  width: 0;
+  background-color: var(--strike, #ff2a00);
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.accordion-item:hover .accordion-id::after {
+  width: 3rem;
+}
+
+.accordion-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5vw, 5.5rem);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.accordion-item:hover .accordion-title {
+  color: #ff2a00;
+}
+
+.accordion-body {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.accordion-item.expanded .accordion-body {
+  height: 250px;
+}
+
+.accordion-content {
+  padding-top: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease 0.1s;
+}
+
+.accordion-item.expanded .accordion-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.acc-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.acc-col p {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* 5. Infinite Marquee */
+.marquee-container {
+  overflow: hidden;
+  background-color: var(--text-base);
+  color: var(--bg-color);
+  padding: 1.5rem 0;
+  display: flex;
+  white-space: nowrap;
+  position: relative;
+  z-index: 30;
+}
+
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marqueeLoop 15s linear infinite;
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  letter-spacing: -0.02em;
+}
+
+.marquee-track span {
+  padding-right: 2rem;
+}
+
+@keyframes marqueeLoop {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Footer */
+.atmos-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 4rem;
+  background: var(--bg-color);
+  border-top: 1px solid var(--border-color);
+  position: relative;
+  z-index: 30;
+}
+
+/* Responsiveness */
+@media (max-width: 900px) {
+  .atmos-nav { padding: 1.5rem 2rem; }
+  .atmos-hero-sticky { padding: 0 2rem; }
+  .manifesto-statement { padding: 0 2rem; }
+  .philosophy-sticky-container { flex-direction: column; }
+  .sticky-sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border-color); padding: 5rem 2rem; }
+  .sticky-content { width: 100%; }
+  .philosophy-block { min-height: 50vh; padding: 4rem 2rem; }
+  .manifesto-statement h2 { font-size: clamp(3rem, 12vw, 5rem); }
+  .divisions-section { padding: 4rem 2rem; }
+  .accordion-item.expanded .accordion-body { height: 400px; }
+  .accordion-content { grid-template-columns: 1fr; gap: 2rem; padding-top: 2rem; }
+  .accordion-head { gap: 1rem; flex-direction: column; align-items: flex-start;}
+  .floating-hover-image { display: none; }
+}
