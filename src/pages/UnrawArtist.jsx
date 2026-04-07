@@ -4,6 +4,7 @@ import { motion, useScroll } from 'framer-motion';
 import YouTubePlayer from '../components/YouTubePlayer';
 import ParallaxMemberCard from '../components/ParallaxMemberCard';
 import ScrambleText from '../components/ScrambleText';
+import AtmosTopNav from '../components/AtmosTopNav';
 import './UnrawArtist.css';
 
 export default function UnrawArtist() {
@@ -91,14 +92,14 @@ export default function UnrawArtist() {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
+      <AtmosTopNav />
       <motion.nav 
-        className="unraw-nav"
+        className="unraw-sys-nav"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: isMounting ? 0 : 1, y: isMounting ? -20 : 0 }}
         transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
         style={{ pointerEvents: isMounting ? 'none' : 'auto' }}
       >
-        <Link to="/" className="back-to-atmos"><ScrambleText text="← ATMOS" /></Link>
         <button onClick={() => scrollToSection('sec-00')} className={`unraw-nav-node ${activeSection === 'sec-00' ? 'active' : ''}`}><ScrambleText text="00" /></button>
         <button onClick={() => scrollToSection('sec-01')} className={`unraw-nav-node ${activeSection === 'sec-01' ? 'active' : ''}`}><ScrambleText text="01" /></button>
         <button onClick={() => scrollToSection('sec-02')} className={`unraw-nav-node ${activeSection === 'sec-02' ? 'active' : ''}`}><ScrambleText text="02" /></button>
@@ -286,11 +287,6 @@ export default function UnrawArtist() {
         </div>
       </section>
 
-        <footer className="unraw-footer">
-          <div>© 2026 ATMOS LABEL</div>
-          <div style={{color: 'var(--strike)', fontWeight: '800'}}>FUNCTIONAL BRUTALISM</div>
-          <div>SEOUL // GLOBAL</div>
-        </footer>
       </motion.div>
     </motion.div>
   );

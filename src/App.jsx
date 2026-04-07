@@ -4,8 +4,14 @@ import { AnimatePresence } from 'framer-motion';
 import Lenis from '@studio-freight/lenis';
 import AtmosLabel from './pages/AtmosLabel';
 import UnrawArtist from './pages/UnrawArtist';
+import AuthPage from './pages/AuthPage';
+import CommunityEventsPage from './pages/CommunityEventsPage';
+import ShopPage from './pages/ShopPage';
+import ProductDetailPage from './pages/ProductDetailPage';
 import CustomCursor from './components/CustomCursor';
 import NoiseOverlay from './components/NoiseOverlay';
+import AtmosBagSidebar from './components/AtmosBagSidebar';
+import AtmosFooter from './components/AtmosFooter';
 
 function App() {
   const location = useLocation();
@@ -41,8 +47,14 @@ function App() {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<AtmosLabel />} />
           <Route path="/unraw" element={<UnrawArtist />} />
+          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/community" element={<CommunityEventsPage />} />
+          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/shop/:id" element={<ProductDetailPage />} />
         </Routes>
       </AnimatePresence>
+      <AtmosFooter />
+      <AtmosBagSidebar />
       <CustomCursor />
     </>
   );

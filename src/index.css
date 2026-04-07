@@ -1,5 +1,17 @@
 /* src/index.css - Global Styles */
 
+:root {
+  --bg-color: #030303;
+  --text-base: #f4f4f4;
+  --text-light: #999999;
+  --accent-sand: #edeae3; /* Premium off-white/sand */
+  --border-color: rgba(255, 255, 255, 0.08); /* Sophisticated thin border */
+  
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Oswald', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
 * {
   margin: 0;
   padding: 0;

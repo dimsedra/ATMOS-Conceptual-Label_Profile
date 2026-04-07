@@ -1,0 +1,111 @@
+.marquee-container {
+  overflow: hidden;
+  background-color: #ffffff; /* Pure white as requested */
+  color: #000000; /* Black text */
+  padding: 3rem 0 1rem 0; /* Increase spacing but remove bottom gap */
+  display: flex;
+  white-space: nowrap;
+  position: relative;
+  z-index: 30;
+  border-top: 1px solid rgba(0, 0, 0, 0.03); /* Extremely subtle boundary from page content */
+}
+
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marqueeLoop 20s linear infinite; /* Slightly slower for premium feel */
+  font-family: var(--font-display);
+  font-size: 4rem;
+  letter-spacing: -0.01em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.marquee-track span {
+  padding-right: 4rem;
+}
+
+@keyframes marqueeLoop {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Footer Section Refinement */
+.atmos-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 5rem 4rem;
+  background: #ffffff; /* Pure white as requested */
+  color: #000000;
+  border-top: none; /* Marquee border handles separation */
+  position: relative;
+  z-index: 30;
+}
+
+.footer-meta-item {
+  position: relative;
+  /* Removed overflow: hidden to prevent text clipping during hover translation */
+  padding: 0.75rem 0;
+  cursor: pointer;
+}
+
+.footer-meta-item .sys-text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #000000;
+  letter-spacing: 0.15em;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
+}
+
+/* Hover Animation: Sequential Underline Reveal */
+.footer-meta-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #000000;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-meta-item:hover .sys-text {
+  transform: translateY(-4px); /* Lift text slightly above the underline */
+  letter-spacing: 0.25em;
+  opacity: 0.8;
+}
+
+.footer-meta-item:hover::after {
+  transform: scaleX(1);
+}
+
+@media (max-width: 900px) {
+  .atmos-footer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem; /* Drastically reduced gap for surgical precision */
+    padding: 2.5rem 1.5rem 4rem 1.5rem; /* Safer bottom padding for mobile-nav overlap */
+    align-items: flex-start;
+  }
+  
+  .marquee-track {
+    font-size: 1.15rem; /* From 2.5rem to 1.15rem: Now a thin system tape */
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  
+  .marquee-container {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .footer-meta-item {
+    font-size: 0.55rem; /* Smaller, high-density mono text */
+    padding: 0;
+    border: none;
+    line-height: 1.4;
+  }
+}

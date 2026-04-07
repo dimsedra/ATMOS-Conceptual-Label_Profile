@@ -1,7 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
-import ScrambleText from '../components/ScrambleText';
+import SmoothReveal from '../components/SmoothReveal';
+import AtmosTopNav from '../components/AtmosTopNav';
 import atmosLogoOffWhite from '../components/img/atmos-logo/ATMOS-Off-White.png';
 import './AtmosLabel.css';
 
@@ -119,37 +120,7 @@ export default function AtmosLabel() {
         }}
       />
 
-      <header className="atmos-header">
-        <nav className="atmos-nav">
-          <Link to="/" className="atmos-logo-link">
-            <div className="nav-logo-wrapper">
-              {!showPreloader && (
-                <motion.img 
-                  layoutId="main-atmos-logo"
-                  src={atmosLogoOffWhite}
-                  alt="ATMOS"
-                  className="nav-logo-img"
-                  transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                />
-              )}
-            </div>
-            {!showPreloader && (
-               <motion.span 
-                 initial={{ opacity: 0, x: -10 }}
-                 animate={{ opacity: 1, x: 0 }}
-                 transition={{ delay: 1, duration: 0.8 }}
-                 style={{ marginLeft: '1rem' }}
-               >
-                 <ScrambleText text="ATMOS" />
-               </motion.span>
-            )}
-          </Link>
-          <Link to="/unraw" className="status sys-text" style={{ textDecoration: 'none', borderBottom: '1px solid #555' }}>
-            <div className="dot"></div>
-            <ScrambleText text="ENTER: UNRAW SYNC" />
-          </Link>
-        </nav>
-      </header>
+      <AtmosTopNav hideLogo={showPreloader} />
 
       {/* Cinematic Hero */}
       <motion.section className="atmos-hero-sticky" style={{ opacity: heroOpacity, scale: heroScale }}>
@@ -166,10 +137,12 @@ export default function AtmosLabel() {
           }}
         />
 
-        <div className="hero-content" style={{maxWidth: '1200px'}}>
-          <div className="sys-text" style={{marginBottom: '2rem'}}>Est. 2025 // Label & Architectural Collective</div>
-          <h1 className="hero-title">The<br/>Architectural<br/>Label.</h1>
-          <p className="hero-subtitle" style={{fontSize: '1.2rem', maxWidth: '600px', color: 'var(--text-light)'}}>Operating at the intersection of music, design, and lifestyle systems. Rejecting consumption-based cycles to construct continuous sensory environments.</p>
+        <div className="hero-content" style={{maxWidth: '1600px', width: '100%'}}>
+          <div className="sys-text" style={{marginBottom: '2rem', color: 'var(--accent-sand)', letterSpacing: '0.2em'}}>EST. 2025 // COLLECTIVE ARCHITECTURE</div>
+          <h1 className="hero-title">
+            <SmoothReveal text="THE ARCHITECTURAL LABEL." delay={0.5} />
+          </h1>
+          <p className="hero-subtitle" style={{fontSize: '1.2rem', maxWidth: '600px', color: 'var(--text-light)', marginTop: '2rem'}}>Operating at the intersection of music, design, and lifestyle systems. Rejecting consumption-based cycles to construct continuous sensory environments.</p>
         </div>
       </motion.section>
 
@@ -206,19 +179,21 @@ export default function AtmosLabel() {
             />
           ))}
           <span className="section-num" style={{ position: 'relative', zIndex: 2 }}>02</span>
-          <h2 className="section-title" style={{marginTop:'1rem', position: 'relative', zIndex: 2}}><ScrambleText text="PHILOSOPHY" /></h2>
+          <h2 className="section-title" style={{marginTop:'1rem', position: 'relative', zIndex: 2}}>
+            <SmoothReveal text="PHILOSOPHY" />
+          </h2>
         </div>
         <div className="sticky-content">
           <motion.div className="philosophy-block" onViewportEnter={() => setActivePhil(0)} viewport={{ amount: 0.25, margin: "-10% 0px -10% 0px" }}>
-            <h3><ScrambleText text="CONSTANT-STATE" /><br/><ScrambleText text="DESIGN" /></h3>
+            <h3>CONSTANT-STATE<br/>DESIGN</h3>
             <p>Unlike traditional models relying on emotional "spikes" or "hype cycles," ATMOS develops systems to sustain a singular, prolonged feeling.</p>
           </motion.div>
           <motion.div className="philosophy-block" onViewportEnter={() => setActivePhil(1)} viewport={{ amount: 0.25, margin: "-10% 0px -10% 0px" }}>
-            <h3><ScrambleText text="ANTI-CONCEPT" /><br/><ScrambleText text="IDENTITY" /></h3>
+            <h3>ANTI-CONCEPT<br/>IDENTITY</h3>
             <p>The label operates without fixed themes or "eras." Our identity evolves naturally. We rigidly avoid radical, forced rebranding.</p>
           </motion.div>
           <motion.div className="philosophy-block" onViewportEnter={() => setActivePhil(2)} viewport={{ amount: 0.25, margin: "-10% 0px -10% 0px" }}>
-            <h3><ScrambleText text="FUNCTIONAL" /><br/><ScrambleText text="AESTHETIC" /></h3>
+            <h3>FUNCTIONAL<br/>AESTHETIC</h3>
             <p>If an element does not serve a tangible function in real life, it is permanently excluded. Deliberate. Usable. Stripped of noise.</p>
           </motion.div>
         </div>
@@ -241,7 +216,7 @@ export default function AtmosLabel() {
             >
               <div className="accordion-head">
                 <span className="accordion-id">{div.id}</span>
-                <h3 className="accordion-title"><ScrambleText text={div.name} trigger={activeDivision === i} /></h3>
+                <h3 className="accordion-title">{div.name}</h3>
               </div>
               <div className="accordion-body">
                 <div className="accordion-content">
@@ -260,21 +235,6 @@ export default function AtmosLabel() {
         </div>
       </section>
 
-      {/* Extreme Marquee */}
-      <div className="marquee-container">
-        <div className="marquee-track">
-           <span>FUNCTIONAL BRUTALISM // SEOUL GLOBALLY // </span>
-           <span>FUNCTIONAL BRUTALISM // SEOUL GLOBALLY // </span>
-           <span>FUNCTIONAL BRUTALISM // SEOUL GLOBALLY // </span>
-           <span>FUNCTIONAL BRUTALISM // SEOUL GLOBALLY // </span>
-        </div>
-      </div>
-
-      <footer className="atmos-footer" style={{borderTop:'none', background: 'var(--text-base)', color: 'var(--bg-color)'}}>
-        <div className="sys-text" style={{color: 'var(--border-color)'}}>© 2026 ATMOS LABEL</div>
-        <div className="sys-text" style={{color: 'var(--border-color)'}}>SEOUL / SOUTH KOREA</div>
-        <div className="sys-text" style={{color: 'var(--border-color)'}}>SYSTEM.STATE: STABLE</div>
-      </footer>
     </motion.div>
   );
 }

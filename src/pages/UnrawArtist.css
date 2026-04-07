@@ -41,18 +41,18 @@
 .unraw-container strong { color: var(--fg); font-weight: 700; }
 
 /* Navigation HUD */
-.unraw-nav {
+.unraw-sys-nav {
   position: fixed;
-  top: 0; left: 0;
+  top: 80px; left: 0;
   width: var(--nav-width);
-  height: 100vh;
+  height: calc(100vh - 80px);
   border-right: 1px solid var(--grid-line);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background: var(--bg);
-  z-index: 9000;
+  z-index: 900;
 }
 .unraw-nav-node {
   width: 100%;
@@ -79,20 +79,6 @@
   font-weight: 800;
 }
 
-/* Back Link */
-.back-to-atmos {
-  position: absolute;
-  top: 2rem;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  font-family: var(--font-mono);
-  color: var(--strike);
-  font-size: 0.75rem;
-  text-decoration: none;
-  transform: rotate(-90deg);
-  white-space: nowrap;
-}
 
 /* Sections */
 .unraw-section-header {
@@ -325,9 +311,14 @@
 @media (max-width: 1200px) {
   .layout-4 { grid-template-columns: 1fr 1fr; }
 }
+
 @media (max-width: 900px) {
-  .unraw-container { padding-left: 0; padding-bottom: var(--nav-width); }
-  .unraw-nav {
+  .unraw-container { 
+    padding-left: 0; 
+    padding-bottom: calc(var(--nav-width) + env(safe-area-inset-bottom)); 
+    padding-top: 80px; 
+  }
+  .unraw-sys-nav {
     top: auto; bottom: 0; width: 100%; height: var(--nav-width);
     flex-direction: row; border-right: none; border-top: 1px solid var(--grid-line);
     z-index: 1000;
@@ -335,21 +326,56 @@
   .unraw-nav-node { 
     border-bottom: none; border-right: 1px solid var(--grid-line); 
     padding: 0; display: flex; align-items: center; justify-content: center; 
-    height: 100%; flex: 1; 
+    height: 100%; flex: 1;
+    font-size: 0.6rem; /* Slightly smaller for mobile */
   }
-  .back-to-atmos { transform: none; top: 0; position: relative; width: auto; font-size: 0.7rem; padding: 0 1rem; display: flex; align-items: center;}
   .layout-3, .layout-2 { grid-template-columns: 1fr; }
+  
+  /* Touch-safe mode panels */
+  .mode-panel { 
+    padding: 3rem 1.5rem; 
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mode-panel h3 { font-size: 2.5rem; }
+  .sonic-card { padding: 3rem 1.5rem; }
+  .sonic-card h3 { font-size: 1.75rem; }
+  
+  .unraw-section-header {
+    padding: 2.5rem 1.5rem;
+  }
+  
+  /* Member cards: Full-width with controlled height */
+  .member-card {
+    border-right: none;
+    border-bottom: 1px solid var(--grid-line);
+  }
+  .member-data {
+    transform: translateY(0); /* Always visible on mobile (no hover) */
+    padding: 1.5rem;
+  }
+  .member-name { font-size: 2rem; }
 }
+
 @media (max-width: 600px) {
   .layout-4 { grid-template-columns: 1fr; }
-  .hero-title-unraw { font-size: clamp(3rem, 20vw, 6rem); }
-  .unraw-section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .hero-title-unraw { font-size: clamp(3rem, 18vw, 5rem); }
+  .unraw-section-header { 
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 1rem; 
+    padding: 2rem 1.5rem;
+  }
+  .unraw-section-header h2 { font-size: clamp(2rem, 8vw, 3rem); }
   .spec-row { grid-template-columns: 1fr; gap: 0.5rem; }
-  .unraw-video-wrapper { padding: 0 1.5rem 2rem 1.5rem; }
+  .unraw-video-wrapper { padding: 0 1rem 2rem 1rem; }
   
   /* Prevent UX state C overflow stretching on narrow mobiles */
   body { overflow-x: hidden; }
   
   /* Fill full width on 1fr mobile stack while capping vertical height */
-  .member-card { aspect-ratio: auto; height: 65vh; width: 100%; }
+  .member-card { aspect-ratio: auto; height: 55vh; width: 100%; }
+  
+  .data-overlay { font-size: 0.65rem; }
+  .data-tl { top: 1.5rem; left: 1.5rem; }
+  .data-br { bottom: 1.5rem; right: 1.5rem; }
 }

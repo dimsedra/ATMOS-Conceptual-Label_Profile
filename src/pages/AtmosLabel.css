@@ -1,15 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap');
 
-:root {
-  --bg-color: #030303;
-  --text-base: #f4f4f4;
-  --text-light: #888888;
-  --border-color: #333333;
-  
-  --font-sans: 'Inter', sans-serif;
-  --font-display: 'Oswald', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-}
 
 body {
   background-color: var(--bg-color);
@@ -447,31 +437,84 @@ p {
   .atmos-nav { padding: 1.5rem; }
   .atmos-hero-sticky { padding: 0 1.5rem; }
   .manifesto-statement { padding: 0 1.5rem; }
-  .philosophy-sticky-container { flex-direction: column; }
-  .sticky-sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border-color); padding: 5rem 1.5rem; }
-  .sticky-content { width: 100%; }
-  .philosophy-block { min-height: 50vh; padding: 4rem 1.5rem; }
-  .manifesto-statement h2 { font-size: clamp(3rem, 12vw, 5rem); }
-  .divisions-section { padding: 4rem 1.5rem; }
-  .accordion-item.expanded .accordion-body { height: 400px; }
-  .accordion-content { grid-template-columns: 1fr; gap: 2rem; padding-top: 2rem; }
   
-  /* Vertical stack adjustments */
-  .accordion-head { gap: 1rem; flex-direction: column; align-items: flex-start;}
-  .accordion-item:hover .accordion-head { gap: 2.5rem; }
-  .accordion-id::after {
-    top: 100%; left: 0; height: 0; width: 2px;
-    transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Philosophy: Stacked Layout */
+  .philosophy-sticky-container { flex-direction: column; }
+  .sticky-sidebar { 
+    width: 100%; 
+    height: auto; 
+    position: static; 
+    border-right: none; 
+    border-bottom: 1px solid var(--border-color); 
+    padding: 4rem 1.5rem; 
   }
-  .accordion-item:hover .accordion-id::after { width: 2px; height: 2rem; top: 120%; }
+  .sticky-content { width: 100%; }
+  .philosophy-block { 
+    min-height: auto; 
+    padding: 4rem 1.5rem; 
+  }
+  .philosophy-block h3 {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+  }
+  .philosophy-block p {
+    font-size: 1rem;
+  }
+  .manifesto-statement h2 { font-size: clamp(3rem, 12vw, 5rem); }
+  .manifesto-statement p { font-size: 1rem; }
+  
+  /* Divisions: Touch-Safe Accordion */
+  .divisions-section { padding: 4rem 1.5rem; }
+  .accordion-item { 
+    padding: 2.5rem 0; 
+  }
+  .accordion-item:hover { 
+    padding-left: 0; 
+    padding-right: 0; 
+  }
+  .accordion-item.expanded .accordion-body { height: auto; }
+  .accordion-content { 
+    grid-template-columns: 1fr; 
+    gap: 2rem; 
+    padding-top: 2rem; 
+  }
+  
+  .accordion-head { 
+    gap: 1rem; 
+    flex-direction: column; 
+    align-items: flex-start;
+  }
+  .accordion-item:hover .accordion-head { gap: 1.5rem; }
+  .accordion-id::after {
+    display: none; /* Cleaner on mobile without mechanical line */
+  }
   
   .floating-hover-image { display: none; }
+  
+  /* Hero Content */
+  .hero-massive-logo {
+    height: 60vh;
+    right: -20vw;
+    top: 10vh;
+    opacity: 0.03;
+  }
 }
 
 @media (max-width: 600px) {
-  .hero-title { font-size: clamp(3.5rem, 15vw, 6rem); margin-bottom: 1rem; }
-  .manifesto-statement h2 { font-size: clamp(2.8rem, 12vw, 4rem); }
-  .divisions-section .section-title { font-size: clamp(2.8rem, 12vw, 4rem); }
-  .accordion-title { font-size: clamp(2.5rem, 10vw, 3.5rem); }
+  .hero-title { 
+    font-size: clamp(3rem, 14vw, 5rem); 
+    margin-bottom: 1rem; 
+  }
+  .manifesto-statement h2 { font-size: clamp(2.5rem, 12vw, 3.5rem); }
+  .divisions-section .section-title { font-size: clamp(2.5rem, 12vw, 3.5rem); }
+  .accordion-title { font-size: clamp(1.8rem, 8vw, 3rem); }
   .marquee-track { font-size: 2.5rem; }
+  .section-title { font-size: 2rem; }
+  
+  /* Touch-Optimized Accordion Targets */
+  .accordion-item {
+    padding: 2rem 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .acc-col p { font-size: 0.85rem; }
 }
