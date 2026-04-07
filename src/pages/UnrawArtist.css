@@ -328,7 +328,7 @@
 @media (max-width: 900px) {
   .unraw-container { padding-left: 0; padding-bottom: var(--nav-width); }
   .unraw-nav {
-    top: auto; bottom: 0; width: 100vw; height: var(--nav-width);
+    top: auto; bottom: 0; width: 100%; height: var(--nav-width);
     flex-direction: row; border-right: none; border-top: 1px solid var(--grid-line);
     z-index: 1000;
   }

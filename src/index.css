@@ -10,11 +10,14 @@
 html {
   /* No smooth scrolling for UNRAW, handled conditionally per page, but by default: */
   scroll-behavior: auto; 
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  max-width: 100%;
   background-color: #030303; /* Global dark bg */
   color: #e0e0e0;
 }
