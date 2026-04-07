@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import Lenis from '@studio-freight/lenis';
+import Lenis from 'lenis';
 import AtmosLabel from './pages/AtmosLabel';
 import UnrawArtist from './pages/UnrawArtist';
 import AuthPage from './pages/AuthPage';
