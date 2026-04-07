@@ -11,10 +11,10 @@ Engineered with severe brutalist aesthetics and zero-compromise kinematic mechan
 ## ⚙️ Core Architecture & Features
 
 - **Functional Brutalism Design:** High-contrast `clamp()` typography, monochromatic deep-black palettes cut with aggressive `var(--strike)` accents, and mathematically derived grid subdivisions.
-- **Global Momentum Engine:** Integrated `@studio-freight/lenis` for customized, buttery smooth scroll hijacking. This effectively uncouples the viewport UX from rigid browser stepping and utilizes 1.5s exponential decay curves for "heavy" cinematic inertia.
+- **Global Momentum Engine:** Integrated `lenis` (v1.3.21) for customized, buttery smooth scroll hijacking. This effectively uncouples the viewport UX from rigid browser stepping and utilizes 1.5s exponential decay curves for "heavy" cinematic inertia.
 - **Cinematic Interaction Physics:** Highly engineered `framer-motion` sequences, including viewport intersection tracking, spatial mouse scrubbing for multi-angled parallax components, and an inverted custom kinetic cursor.
 - **Independent Tactile Typography:** Native high-frequency character decoding sequences (`<ScrambleText>`) placed surgically on specific layout bounds. These deliver highly mechanical, "tingly" tactile feedback exclusively when users physically intersect hover boundaries.
-- **Vite/React Core:** Blistering fast development experience and optimized static asset delivery via Vite + SWC.
+- **Vite/React Core:** Blistering fast development experience and optimized static asset delivery via **Vite 8** + **React 19** + **SWC**.
 
 ---
 
@@ -30,7 +30,7 @@ Engineered with severe brutalist aesthetics and zero-compromise kinematic mechan
 2. **Install core Node dependencies:**
 
    ```bash
-   npm install
+   npm install --legacy-peer-deps
    ```
 
 3. **Configure Environment Variables:**
@@ -46,7 +46,7 @@ Engineered with severe brutalist aesthetics and zero-compromise kinematic mechan
    ```bash
    npm run dev
    ```
-   Navigate to `http://localhost:5173/` in your browser.
+   Navigate to the local port (e.g., `http://localhost:5173/` or `5175/`) in your browser.
 
 ---
 
@@ -63,11 +63,12 @@ npm run preview
 
 I've deployed this website through vercel, if you'd like to see how it looks, here it is: [ATMOS](https://atmos-conceptual-label-profile.vercel.app/)
 
-## 💻 Tech Stack
+## 💻 Tech Stack (2026 Standards)
 
-- **Framework:** React 18
-- **Build Tool:** Vite
+- **Framework:** React 19.2
+- **Build Tool:** Vite 8.0 (SWC)
+- **3D Engine:** Three.js 0.183.2
 - **Routing:** React Router v6
 - **Physics & Animation:** Framer Motion
-- **Scroll Engine:** Lenis
+- **Scroll Engine:** Lenis 1.3
 - **Aesthetics:** Vanilla CSS (CSS Variables + Scoped Component Files)
