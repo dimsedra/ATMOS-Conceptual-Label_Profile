@@ -46,10 +46,7 @@ Engineered with severe brutalist aesthetics and zero-compromise kinematic mechan
 
 ---
 
-## 🚀 Production Deployment
-
-This project uses modern SPA (Single Page Application) routing via `react-router-dom`. When deploying to static hosting environments like **Vercel** or **Netlify**, the routing fallbacks have already been thoroughly engineered into the local `vercel.json` and `netlify.toml` configuration files. 
-
+## Production Deployment
 To build the static production bundle locally for inspection:
 ```bash
 npm run build
