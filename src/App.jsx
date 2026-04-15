@@ -5,6 +5,7 @@ import Lenis from 'lenis';
 import AtmosLabel from './pages/AtmosLabel';
 import UnrawArtist from './pages/UnrawArtist';
 import AuthPage from './pages/AuthPage';
+import AccountPage from './pages/AccountPage';
 import CommunityEventsPage from './pages/CommunityEventsPage';
 import ShopPage from './pages/ShopPage';
 import ProductDetailPage from './pages/ProductDetailPage';
@@ -48,6 +49,7 @@ function App() {
           <Route path="/" element={<AtmosLabel />} />
           <Route path="/unraw" element={<UnrawArtist />} />
           <Route path="/auth" element={<AuthPage />} />
+          <Route path="/account" element={<AccountPage />} />
           <Route path="/community" element={<CommunityEventsPage />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/shop/:id" element={<ProductDetailPage />} />

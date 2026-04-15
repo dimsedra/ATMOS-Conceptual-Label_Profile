@@ -1,20 +1,29 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSupabase } from '../context/SupabaseContext';
+import ArchitecturalEditor from '../components/ArchitecturalEditor';
 import AtmosTopNav from '../components/AtmosTopNav';
 import SmoothReveal from '../components/SmoothReveal';
 import './CommunityEventsPage.css';
 
 export default function CommunityEventsPage() {
+  const { supabase, user } = useSupabase();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const initialTab = searchParams.get('tab') || 'events';
   
   const [activeTab, setActiveTab] = useState(initialTab);
-  const [likes, setLikes] = useState({});
-  const [reposts, setReposts] = useState({});
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  // Post Creator State
+  const [richContent, setRichContent] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
   const [isPosting, setIsPosting] = useState(false);
-  const [postText, setPostText] = useState('');
+  const [uploadProgress, setUploadProgress] = useState(0);
+  
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     setActiveTab(searchParams.get('tab') || 'events');
@@ -22,32 +31,103 @@ export default function CommunityEventsPage() {
 
   useEffect(() => {
     if (window.lenis) window.lenis.scrollTo(0, { immediate: true });
+    fetchPosts();
+
+    // REAL-TIME FEED SUBSCRIPTION
+    const channel = supabase
+      .channel('public:posts')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'posts' }, (payload) => {
+        // Optimistically fetch the new post with profile info
+        fetchPosts();
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
-  const toggleLike = (id) => {
-    setLikes(prev => ({ ...prev, [id]: !prev[id] }));
+  const fetchPosts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('posts')
+        .select(`
+          *,
+          profiles (username, avatar_url)
+        `)
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      setPosts(data || []);
+    } catch (err) {
+      console.error('FETCH_STATE_FAIL:', err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const toggleRepost = (id) => {
-    setReposts(prev => ({ ...prev, [id]: !prev[id] }));
+  const handleImageSelect = (e) => {
+    const file = e.target.files[0];
+    if (file && file.size < 5120000) { // 5MB Limit
+      setSelectedImage(file);
+    } else if (file) {
+      alert('FILE_SIZE_LIMIT_EXCEEDED: 5MB MAX');
+    }
   };
 
-  const handlePost = () => {
-    if (!postText.trim()) return;
+  const handlePost = async () => {
+    if (!richContent.trim() && !selectedImage) return;
+    if (!user) return alert('AUTHENTICATION_REQUIRED');
+
     setIsPosting(true);
-    setTimeout(() => {
+
+    try {
+      let imageUrl = null;
+
+      // 1. UPLOAD IMAGE IF SELECTED
+      if (selectedImage) {
+        const fileExt = selectedImage.name.split('.').pop();
+        const fileName = `${Math.random()}.${fileExt}`;
+        const filePath = `${user.id}/${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from('community_assets')
+          .upload(filePath, selectedImage);
+
+        if (uploadError) throw uploadError;
+
+        const { data: { publicUrl } } = supabase.storage
+          .from('community_assets')
+          .getPublicUrl(filePath);
+        
+        imageUrl = publicUrl;
+      }
+
+      // 2. INSERT POST
+      const { error: postError } = await supabase
+        .from('posts')
+        .insert({
+          user_id: user.id,
+          rich_html: richContent,
+          image_url: imageUrl,
+        });
+
+      if (postError) throw postError;
+
+      // 3. RESET STATE
+      setRichContent('');
+      setSelectedImage(null);
+    } catch (err) {
+      alert('SYNC_FAILURE: ' + err.message);
+    } finally {
       setIsPosting(false);
-      setPostText('');
-      // Logic for adding post would go here
-    }, 2000);
+    }
   };
 
-  // Dummy Data for Threads-style feed
-  const feedPosts = [
-    { id: 1, author: "ATMOS_CORE", handle: "@atmos_sys", content: "The Seoul Sector pop-up was incredible. Thank you all for the energy. We are officially in sync.", time: "2H AGO" },
-    { id: 2, author: "UNRAW", handle: "@unraw_official", content: "Working on the final vocal textures in the studio. The groove is starting to feel undeniable.", time: "5H AGO" },
-    { id: 3, author: "USER_8991", handle: "@arch_dev", content: "Just received my Architectural Hoodie. The fit and silhouette stability are exactly what I needed.", time: "8H AGO" }
-  ];
+  const toggleLike = async (postId) => {
+    if (!user) return alert('AUTH_REQUIRED');
+    // Implement resonant toggle logic here
+  };
 
   const events = [
     { id: 1, name: "KINETIC OUTBREAK", date: "2026.05.14", loc: "SEOUL DISTRICT 1", status: "OPEN" },
@@ -119,48 +199,84 @@ export default function CommunityEventsPage() {
               <motion.div 
                 key="feed"
                 className="feed-list"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               >
-                <div className="post-input-box">
-                  <input 
-                    type="text" 
-                    placeholder={isPosting ? "ENCODING PERSPECTIVE..." : "Share your perspective..."} 
-                    className="feed-input" 
-                    value={postText}
-                    onChange={(e) => setPostText(e.target.value)}
-                    disabled={isPosting}
-                  />
-                  <button className="feed-btn" onClick={handlePost} disabled={isPosting}>
-                    {isPosting ? 'THINKING...' : 'POST'}
-                  </button>
-                </div>
-                
-                {feedPosts.map((post) => (
-                  <div key={post.id} className="feed-post">
-                    <div className="post-header">
-                      <div className="post-author">{post.author} <span className="post-handle">{post.handle}</span></div>
-                      <div className="post-time">{post.time}</div>
-                    </div>
-                    <p className="post-content">{post.content}</p>
-                    <div className="post-actions">
-                      <button 
-                        className={`action-btn ${likes[post.id] ? 'active' : ''}`} 
-                        onClick={() => toggleLike(post.id)}
-                      >
-                        {likes[post.id] ? 'SURFACEED' : 'LIKE'}
-                      </button>
-                      <button 
-                        className={`action-btn ${reposts[post.id] ? 'active' : ''}`} 
-                        onClick={() => toggleRepost(post.id)}
-                      >
-                        {reposts[post.id] ? 'SYNCED' : 'REPOST'}
-                      </button>
-                    </div>
+                {user ? (
+                   <div className="post-creator-unit">
+                     <ArchitecturalEditor 
+                       content={richContent} 
+                       onChange={setRichContent} 
+                       placeholder="ARCHITECTURE_OF_THOUGHT..."
+                     />
+                     <div className="creator-actions">
+                       <input 
+                         type="file" 
+                         accept="image/*" 
+                         ref={fileInputRef} 
+                         onChange={handleImageSelect} 
+                         style={{ display: 'none' }}
+                       />
+                       <button 
+                         className={`unit-action ${selectedImage ? 'active' : ''}`}
+                         onClick={() => fileInputRef.current.click()}
+                         title="ADD_IMAGE"
+                       >
+                         {selectedImage ? 'IMAGE_STAGED' : 'ATTACH_MEDIA'}
+                       </button>
+                       <button 
+                         className={`unit-submit ${isPosting ? 'loading' : ''}`}
+                         onClick={handlePost}
+                         disabled={isPosting}
+                       >
+                         {isPosting ? 'UPLOADING...' : 'PUBLISH'}
+                       </button>
+                     </div>
+                   </div>
+                ) : (
+                  <div className="auth-prompt-unit">
+                    AUTHENTICATION_REQUIRED_FOR_PARTICIPATION.
                   </div>
-                ))}
+                )}
+                
+                {loading ? (
+                  <div className="feed-status">SYNCHRONIZING_COLLECTIVE...</div>
+                ) : (
+                  <>
+                    {posts.map((post) => (
+                      <div key={post.id} className="feed-post-card">
+                        <div className="post-header-unit">
+                          <div className="member-alias">
+                            {post.profiles?.avatar_url && <img src={post.profiles.avatar_url} className="mini-avatar" />}
+                            {post.profiles?.username || 'ANONYMOUS_UNIT'}
+                          </div>
+                          <div className="post-time-stamp">
+                            {new Date(post.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                          </div>
+                        </div>
+                        
+                        <div 
+                          className="post-content-rich" 
+                          dangerouslySetInnerHTML={{ __html: post.rich_html }} 
+                        />
+                        
+                        {post.image_url && (
+                          <div className="post-media-frame">
+                            <img src={post.image_url} alt="Perspective Media" />
+                          </div>
+                        )}
+
+                        <div className="post-actions-unit">
+                          <button className="resonance-btn" onClick={() => toggleLike(post.id)}>
+                            RESONATE
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                )}
               </motion.div>
             )}
           </AnimatePresence>

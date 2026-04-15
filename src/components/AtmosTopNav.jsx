@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAtmos } from '../context/AtmosContext';
+import { useSupabase } from '../context/SupabaseContext';
 import ScrambleText from './ScrambleText';
 import atmosLogoOffWhite from './img/atmos-logo/ATMOS-Off-White.png';
 import './AtmosTopNav.css';
@@ -10,6 +11,7 @@ export default function AtmosTopNav({ hideLogo = false }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { bagItems, toggleBag } = useAtmos();
+  const { user } = useSupabase();
   const location = useLocation();
 
   const handleMobileNav = () => setMobileMenuOpen(false);
@@ -23,8 +25,10 @@ export default function AtmosTopNav({ hideLogo = false }) {
     { to: '/shop', label: 'SHOP', id: '01' },
     { to: '/community', label: 'COMMUNITY', id: '02' },
     { to: '/unraw', label: 'ROSTER', id: '03' },
-    { to: '/auth', label: 'MEMBERSHIP', id: '04' },
+    { to: user ? '/account' : '/auth', label: user ? 'PROFILE' : 'MEMBERSHIP', id: '04' },
   ];
+
+  const displayName = user?.user_metadata?.username || user?.user_metadata?.full_name || 'ACCOUNT';
 
   return (
     <header className="global-top-nav">
@@ -83,16 +87,18 @@ export default function AtmosTopNav({ hideLogo = false }) {
             </AnimatePresence>
           </div>
 
-         <Link to="/auth" className={`nav-link ${location.pathname === '/auth' ? 'active' : ''}`}><ScrambleText text="MEMBERSHIP" /></Link>
+         <Link to={user ? "/account" : "/auth"} className={`nav-link ${(location.pathname === '/auth' || location.pathname === '/account') ? 'active' : ''}`}>
+           <ScrambleText text={user ? "PROFILE" : "MEMBERSHIP"} />
+         </Link>
       </nav>
 
       <div className="nav-right">
          <button className="nav-bag-btn" onClick={toggleBag}>
             BAG [{bagItems.length}]
          </button>
-         <Link to="/auth" className="sys-status-btn desktop-only">
-            <div className="dot blink"></div>
-            <ScrambleText text="ACCOUNT" />
+         <Link to={user ? "/account" : "/auth"} className="sys-status-btn desktop-only">
+            <div className={`dot ${user ? 'active' : 'blink'}`} style={user ? { backgroundColor: 'var(--accent-sand)' } : {}}></div>
+            <ScrambleText text={user ? displayName.toUpperCase() : "ACCOUNT"} />
          </Link>
          <button 
            className={`mobile-menu-toggle ${mobileMenuOpen ? 'open' : ''}`}
@@ -124,7 +130,7 @@ export default function AtmosTopNav({ hideLogo = false }) {
             >
               <div className="drawer-header">
                 <div className="sys-head-meta">
-                  <span className="blink-dot"></span>
+                  <span className={`blink-dot ${user ? 'active' : ''}`} style={user ? { backgroundColor: 'var(--accent-sand)' } : {}}></span>
                   <span className="sys-id">ATMOS v2.4</span>
                 </div>
               </div>
@@ -139,7 +145,7 @@ export default function AtmosTopNav({ hideLogo = false }) {
                   >
                     <Link 
                       to={link.to} 
-                      className={`drawer-link ${location.pathname === link.to ? 'active' : ''}`}
+                      className={`drawer-link ${(location.pathname === link.to || (link.to === '/account' && location.pathname === '/auth')) ? 'active' : ''}`}
                       onClick={handleMobileNav}
                     >
                       <span className="link-num">{link.id}</span>
@@ -150,8 +156,8 @@ export default function AtmosTopNav({ hideLogo = false }) {
               </nav>
 
               <div className="drawer-footer">
-                <Link to="/auth" className="drawer-account-btn" onClick={handleMobileNav}>
-                   ACCOUNT
+                <Link to={user ? "/account" : "/auth"} className="drawer-account-btn" onClick={handleMobileNav}>
+                   {user ? displayName.toUpperCase() : "ACCOUNT"}
                 </Link>
                 <div className="sys-path">PATH: {location.pathname.toUpperCase()}</div>
               </div>

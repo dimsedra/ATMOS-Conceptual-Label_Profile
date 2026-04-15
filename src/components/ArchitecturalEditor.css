@@ -1,0 +1,127 @@
+.architectural-editor-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 151px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 0.5px solid var(--border-color);
+  padding: 1.5rem;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.architectural-editor-wrapper:focus-within {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.architectural-prose-root {
+  min-height: 100px;
+  color: var(--text-base);
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+}
+
+.editor-placeholder {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  color: #555;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  text-transform: uppercase;
+  transition: opacity 0.3s;
+}
+
+.architectural-editor-wrapper:focus-within .editor-placeholder {
+  opacity: 0;
+}
+
+/* Bubble Menu Styling */
+.bubble-menu-root {
+  display: flex;
+  background-color: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(25px);
+  border: 0.5px solid rgba(255, 255, 255, 0.15);
+  padding: 0.4rem;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.bubble-toolbar-glass {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toolbar-btn {
+  background: none;
+  border: none;
+  color: #888;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.toolbar-btn:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.toolbar-btn.is-active {
+  color: var(--accent-sand);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 0 0.25rem;
+}
+
+/* Prosemirror Content Styling */
+.architectural-prose-root blockquote {
+  border-left: 2px solid var(--accent-sand);
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #bbb;
+}
+
+.architectural-prose-root h2 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.editor-image {
+  max-width: 100%;
+  border-radius: 2px;
+  margin: 2rem 0;
+  display: block;
+  opacity: 0.9;
+  filter: grayscale(0.2);
+  transition: opacity 0.5s;
+}
+
+.editor-image:hover {
+  opacity: 1;
+  filter: grayscale(0);
+}

@@ -9,11 +9,11 @@ import './AuthPage.css';
 export default function AuthPage() {
   const { supabase, user } = useSupabase();
   const navigate = useNavigate();
-  
+
   const [isLogin, setIsLogin] = useState(true);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [error, setError] = useState(null);
-  
+
   // Form State
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +22,7 @@ export default function AuthPage() {
   useEffect(() => {
     if (window.lenis) window.lenis.scrollTo(0, { immediate: true });
     // If already logged in, redirect
-    if (user) navigate('/');
+    if (user) navigate('/account');
   }, [user, navigate]);
 
   const validateInputs = () => {
@@ -74,7 +74,7 @@ export default function AuthPage() {
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="auth-container"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -82,30 +82,30 @@ export default function AuthPage() {
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <AtmosTopNav />
-      
+
       <div className="auth-studio">
         <div className="studio-header">
-           <div className="studio-tag">MEMBERSHIP ACCESS</div>
-           <div className="studio-tabs">
-             <button 
-               className={`studio-tab ${isLogin ? 'active' : ''}`} 
-               onClick={() => setIsLogin(true)}
-             >
-               SIGN IN
-             </button>
-             <button 
-               className={`studio-tab ${!isLogin ? 'active' : ''}`} 
-               onClick={() => setIsLogin(false)}
-             >
-               JOIN US
-             </button>
-           </div>
+          <div className="studio-tag">MEMBERSHIP ACCESS</div>
+          <div className="studio-tabs">
+            <button
+              className={`studio-tab ${isLogin ? 'active' : ''}`}
+              onClick={() => setIsLogin(true)}
+            >
+              SIGN IN
+            </button>
+            <button
+              className={`studio-tab ${!isLogin ? 'active' : ''}`}
+              onClick={() => setIsLogin(false)}
+            >
+              JOIN US
+            </button>
+          </div>
         </div>
 
         <div className="terminal-body">
           <AnimatePresence mode="wait">
             {isLogin ? (
-              <motion.form 
+              <motion.form
                 key="login"
                 className="auth-form"
                 initial={{ opacity: 0, x: -20 }}
@@ -116,27 +116,27 @@ export default function AuthPage() {
               >
                 <div className="input-group">
                   <label>EMAIL IDENTIFIER</label>
-                  <input 
-                    type="email" 
-                    required 
-                    placeholder="your@email.com" 
+                  <input
+                    type="email"
+                    required
+                    placeholder="your@email.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="input-group">
                   <label>SECURITY KEY</label>
-                  <input 
-                    type="password" 
-                    required 
-                    placeholder="••••••••" 
+                  <input
+                    type="password"
+                    required
+                    placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
 
                 {error && (
-                  <motion.div 
+                  <motion.div
                     className="auth-error-console"
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
@@ -150,7 +150,7 @@ export default function AuthPage() {
                 </button>
               </motion.form>
             ) : (
-              <motion.form 
+              <motion.form
                 key="register"
                 className="auth-form"
                 initial={{ opacity: 0, x: -20 }}
@@ -161,37 +161,37 @@ export default function AuthPage() {
               >
                 <div className="input-group">
                   <label>USER ALIAS</label>
-                  <input 
-                    type="text" 
-                    required 
-                    placeholder="your name" 
+                  <input
+                    type="text"
+                    required
+                    placeholder="your name"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
                 <div className="input-group">
                   <label>EMAIL IDENTIFIER</label>
-                  <input 
-                    type="email" 
-                    required 
-                    placeholder="your@email.com" 
+                  <input
+                    type="email"
+                    required
+                    placeholder="your@email.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="input-group">
                   <label>SECURITY KEY</label>
-                  <input 
-                    type="password" 
-                    required 
-                    placeholder="create key" 
+                  <input
+                    type="password"
+                    required
+                    placeholder="create key"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
 
                 {error && (
-                  <motion.div 
+                  <motion.div
                     className="auth-error-console"
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
@@ -207,7 +207,7 @@ export default function AuthPage() {
             )}
           </AnimatePresence>
         </div>
-        
+
       </div>
     </motion.div>
   );
